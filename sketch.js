@@ -12,8 +12,10 @@ var depthMinus;
 var tempMaxDepth = 3;
 
 var test;
+var moveHistory = [];
+
 function setup() {
-    createCanvas(600, 600);
+    createCanvas(800, 600);
 
     for (var i = 1; i < 10; i++) {
         images.push(loadImage("./assets/2000px-Chess_Pieces_Sprite_0" + i + ".png"));
@@ -28,6 +30,7 @@ function draw() {
     background(100);
     showGrid();
     test.show();
+    displayMoveHistory();
 }
 
 function showGrid() {
@@ -65,6 +68,12 @@ function mousePressed() {
                 movingPiece.move(x, y, test);
                 movingPiece.movingThisPiece = false;
                 whitesMove = !whitesMove;
+                moveHistory.push({
+                    piece: movingPiece,
+                    from: { x: movingPiece.matrixPosition.x, y: movingPiece.matrixPosition.y },
+                    to: { x: x, y: y }
+                });
+                print(moveHistory[0].piece.letter + ' moved ' + x + " " + y);
             } else {
                 movingPiece.movingThisPiece = false;
 
@@ -72,4 +81,40 @@ function mousePressed() {
         }
         moving = !moving;
     }
+}
+
+
+function displayMoveHistory() {
+    fill(255);
+    textSize(20);
+    textAlign(LEFT);
+    var yPosition = 20;
+
+    for (var i = 0; i < moveHistory.length; i++) {
+        var move = moveHistory[i];
+        var notation = getMoveNotation(move.piece, move.from, move.to);
+        text(notation, width - 115, yPosition);
+        yPosition += 30;
+    }
+}
+
+function getMoveNotation(piece, from, to) {
+    // Check if piece has a 'type' property
+    if (piece.letter == 'p') {
+        return getSquareNotation(to);
+    }
+    else if(piece.letter == 'Kn'){
+        return "N" + getSquareNotation(to);
+    }
+    else {
+        return piece.letter + "" + getSquareNotation(to);
+    }
+}
+
+function getSquareNotation(square) {
+    //abcdefgh
+    var file = String.fromCharCode('a'.charCodeAt(0) + square.x);
+    //rank are the rows
+    var rank = 8 - square.y; // Adjust the rank calculation
+    return file + rank;
 }
