@@ -1,1 +1,1 @@
-# Multiplayer Chess w/ HTML, CSS, Javascript
+# Chess AI with p5 and minimax function
