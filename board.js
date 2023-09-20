@@ -10,10 +10,10 @@ class Board {
 
     setupPieces() {
         //white pieces
+        this.whitePieces.push(new King(4, 7, true));
         this.whitePieces.push(new Rook(7, 7, true));
         this.whitePieces.push(new Knight(6, 7, true));
         this.whitePieces.push(new Bishop(5, 7, true));
-        this.whitePieces.push(new King(4, 7, true));
         this.whitePieces.push(new Queen(3, 7, true));
         this.whitePieces.push(new Bishop(2, 7, true));
         this.whitePieces.push(new Knight(1, 7, true));
@@ -32,10 +32,10 @@ class Board {
 
 
         //black pieces
+        this.blackPieces.push(new King(4, 0, false));
         this.blackPieces.push(new Rook(7, 0, false));
         this.blackPieces.push(new Knight(6, 0, false));
         this.blackPieces.push(new Bishop(5, 0, false));
-        this.blackPieces.push(new King(4, 0, false));
         this.blackPieces.push(new Queen(3, 0, false));
         this.blackPieces.push(new Bishop(2, 0, false));
         this.blackPieces.push(new Knight(1, 0, false));
