@@ -16,6 +16,7 @@ var moveHistory = [];
 
 function setup() {
     createCanvas(800, 600);
+    htmlStuff();
 
     for (var i = 1; i < 10; i++) {
         images.push(loadImage("./assets/2000px-Chess_Pieces_Sprite_0" + i + ".png"));
@@ -47,6 +48,7 @@ function draw() {
     showGrid();
     test.show();
     displayMoveHistory();
+    runAIs();
 }
 
 function showGrid() {
@@ -184,4 +186,59 @@ function getSquareNotation(square) {
     //rank are the rows
     var rank = 8 - square.y; // Adjust the rank calculation
     return file + rank;
+}
+
+function runAIs() {
+    maxDepth = tempMaxDepth;
+    if (!test.isDead() && !test.hasWon()) {
+        if (blackAI) {
+            if (!whitesMove) {
+                if (moveCounter < 0) {
+                    test = maxFunAB(test, -400, 400, 0);
+
+                    whitesMove = true;
+                    moveCounter = 10;
+                } else {
+                    moveCounter--;
+                }
+            }
+        }
+        if (whiteAI) {
+            if (whitesMove) {
+                if (moveCounter < 0) {
+                    test = minFunAB(test, -400, 400, 0);
+
+                    whitesMove = false;
+                    moveCounter = 10;
+                } else {
+                    moveCounter--;
+                }
+            }
+        }
+    }
+}
+
+function htmlStuff() {
+    createP("");
+    depthPara = createDiv("Level: " + maxDepth);
+    depthMinus = createButton("-");
+    depthPlus = createButton('+');
+
+    depthPlus.mousePressed(plusDepth);
+    depthMinus.mousePressed(minusDepth);
+
+}
+
+function minusDepth() {
+    if (tempMaxDepth > 1) {
+        tempMaxDepth -= 1;
+        depthPara.html("Level: " + tempMaxDepth);
+    }
+}
+
+function plusDepth() {
+    if (tempMaxDepth < 4) {
+        tempMaxDepth += 1;
+        depthPara.html("Level: " + tempMaxDepth);
+    }
 }
