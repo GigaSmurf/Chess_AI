@@ -56,7 +56,7 @@ app.get('/play-multiplayer', (req, res) => {
 });
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://GigaSmurf:mongobongo@cluster0.5zvdfps.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URL;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
