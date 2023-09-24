@@ -4,9 +4,13 @@ class Board {
         this.blackPieces = [];
         this.score = 0;
         this.setupPieces();
-
-
     }
+
+    // constructor(val){
+    //     this.whitePieces = [];
+    //     this.blackPieces = [];
+    //     this.score = 0;
+    // }
 
     setupPieces() {
         //white pieces
